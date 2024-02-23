@@ -1,0 +1,28 @@
+{
+  "objects": [
+    {
+      "DataType": "Cabinet",
+      "Name": "666",
+      "Icon": "",
+      "InsideObject": "",
+      "Path": [
+        [12, 12],
+        [124, 621],
+        [50, 80]
+      ],
+      "HasProjector": true,
+      "NumberChairs": 20
+    },
+    {
+      "DataType": "Floor",
+      "Name" : "2",
+      "Icon": "",
+      "InsideObject": "floor2",
+      "Path": [
+        [250, 500],
+        [424, 621],
+        [241, 111]
+      ]
+    }
+  ]
+}

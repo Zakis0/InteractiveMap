@@ -1,0 +1,50 @@
+{
+  "objects" : [
+    {
+      "DataType": "Cabinet",
+      "Name": "666",
+      "Icon": "",
+      "InsideObject": "",
+      "Path": [
+        [12, 12],
+        [124, 621]
+      ],
+      "HasProjector": true,
+      "NumberChairs": 2
+    },
+    {
+      "DataType": "LectureCabinet",
+      "Name" : "П5",
+      "Icon": "",
+      "InsideObject": "",
+      "Path": [
+        [12, 12],
+        [124, 621]
+      ],
+      "NumberChairs": 110
+    },
+    {
+      "DataType": "Cabinet",
+      "Name": "123",
+      "Icon": "",
+      "InsideObject": "",
+      "Path": [
+        [12, 12],
+        [124, 621]
+      ],
+      "HasProjector": false,
+      "NumberChairs": 0
+    },
+    {
+      "DataType": "LectureCabinet",
+      "Name" : "П14",
+      "Icon": "",
+      "InsideObject": "",
+      "Path": [
+        [12, 12],
+        [124, 621]
+      ],
+      "NumberChairs": 123
+    }
+  ]
+}

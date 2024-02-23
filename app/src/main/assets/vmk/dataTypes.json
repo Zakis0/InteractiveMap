@@ -1,0 +1,9 @@
+{
+  "Cabinet": {
+    "NumberChairs": "Int",
+    "HasProjector": "Bool"
+  },
+  "LectureCabinet": {
+    "NumberChairs": "Int"
+  }
+}
