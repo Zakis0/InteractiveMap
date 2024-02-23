@@ -4,7 +4,8 @@ class InteractiveObject(
     var dataType: String,
     var path: MutableList<Coords>,
     var name: String = "",
-    var insideObject: String,
+    var color: MyColor = MyColor.GRAY,
+    var insideObject: String = "",
     var icon: String = ""
 ) {
     val ints = mutableMapOf<String, Int>()
@@ -18,6 +19,7 @@ class InteractiveObject(
     override fun toString(): String {
         var resultString = "Type Name: $dataType\n" +
                 "Name: $name\n" +
+                "Color: $color\n" +
                 "Inside Object: $insideObject\n" +
                 "Path: $path"
         ints.forEach {

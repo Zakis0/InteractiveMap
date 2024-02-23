@@ -10,6 +10,7 @@ import java.io.InputStreamReader
 object JSONParser {
     private const val OBJECT_DATA_TYPE_KEY = "DataType"
     private const val OBJECT_NAME_KEY = "Name"
+    private const val OBJECT_COLOR_KEY = "Color"
     private const val OBJECT_ICON_KEY = "Icon"
     private const val OBJECT_INSIDE_OBJECT_JSON_KEY = "InsideObject"
     private const val OBJECT_PATH_KEY = "Path"
@@ -17,6 +18,7 @@ object JSONParser {
     private val DEFAULT_KEYS = setOf(
         OBJECT_DATA_TYPE_KEY,
         OBJECT_NAME_KEY,
+        OBJECT_COLOR_KEY,
         OBJECT_ICON_KEY,
         OBJECT_INSIDE_OBJECT_JSON_KEY,
         OBJECT_PATH_KEY
@@ -69,7 +71,10 @@ object JSONParser {
 
             val pathArray = map[OBJECT_PATH_KEY] as ArrayList<ArrayList<Float>>
 
+            val colorArray = map[OBJECT_COLOR_KEY] as ArrayList<Int>
+
             val path: MutableList<Coords> = mutableListOf()
+            val color = MyColor(colorArray[0], colorArray[1], colorArray[2])
 
             pathArray.forEach {
                 path.add(Coords(it[0], it[1]))
@@ -78,6 +83,7 @@ object JSONParser {
                 dataTypeName,
                 path,
                 name,
+                color,
                 insideObject,
                 icon
             )

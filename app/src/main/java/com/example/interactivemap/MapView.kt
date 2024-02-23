@@ -22,7 +22,9 @@ class MapView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     override fun onDraw(canvas: Canvas) {
         objects.forEach { obj ->
-            canvas.drawPath(obj.getCanvasPath().path, paint)
+            canvas.drawPath(obj.getCanvasPath().path, paint.apply {
+                color = obj.color.parseColor()
+            })
         }
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {

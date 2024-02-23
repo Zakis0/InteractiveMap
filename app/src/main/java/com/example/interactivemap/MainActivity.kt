@@ -16,10 +16,6 @@ class MainActivity : AppCompatActivity() {
         binding.mapView.activity = this
 
         val interactiveObjectsList = JSONParser.getJSONsInteractiveObjectsListList(this, "vmk")
-        interactiveObjectsList.forEach {
-            Log.d(GLOBAL_DEBUG, it.toString())
-        }
-
         binding.mapView.objects = interactiveObjectsList
     }
 }

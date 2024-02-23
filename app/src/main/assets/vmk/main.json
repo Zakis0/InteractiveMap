@@ -3,6 +3,7 @@
     {
       "DataType": "Cabinet",
       "Name": "666",
+      "Color": [124, 124, 12],
       "Icon": "",
       "InsideObject": "",
       "Path": [
@@ -16,12 +17,26 @@
     {
       "DataType": "Floor",
       "Name" : "2",
+      "Color": [124, 0, 12],
       "Icon": "",
       "InsideObject": "floor2",
       "Path": [
         [250, 500],
         [424, 621],
         [241, 111]
+      ]
+    },
+    {
+      "DataType": "Floor",
+      "Name" : "Floor 1",
+      "Color": [0, 124, 12],
+      "Icon": "",
+      "InsideObject": "floor1",
+      "Path": [
+        [500, 500],
+        [500, 700],
+        [700, 700],
+        [700, 500]
       ]
     }
   ]
