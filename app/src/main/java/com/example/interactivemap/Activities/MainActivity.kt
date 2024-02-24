@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.interactivemap.Constants.Keys
 import com.example.interactivemap.Modules.JSONParser
+import com.example.interactivemap.Modules.ObjectOpener
 import com.example.interactivemap.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val activityLauncher: ActivityResultLauncher<Intent>? =
+        val activityLauncher: ActivityResultLauncher<Intent> =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_CANCELED) {
                 // Temporary do not needed
@@ -27,17 +28,18 @@ class MainActivity : AppCompatActivity() {
         val mapName = "vmk"
 
         binding.button.setOnClickListener {
-            val intent = Intent(this@MainActivity, MapActivity::class.java)
             val dataTypesMap =
                 JSONParser.getDataTypesMap(
                     this,
                     "$mapName/${JSONParser.DATA_TYPE_JSON_PATH}"
                 )
-            intent.putExtra(Keys.MAP_NAME_KEY, mapName)
-            intent.putExtra(Keys.MAP_OBJECT_JSON_KEY, JSONParser.MAIN_JSON_PATH)
-            intent.putExtra(Keys.DATA_TYPES_MAP_KEY, HashMap(dataTypesMap))
-
-            activityLauncher!!.launch(intent)
+            ObjectOpener.launchIntent(
+                activityLauncher,
+                this@MainActivity,
+                mapName,
+                JSONParser.MAIN_JSON_PATH,
+                dataTypesMap
+            )
         }
     }
 }

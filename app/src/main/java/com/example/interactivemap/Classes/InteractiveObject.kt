@@ -14,7 +14,7 @@ class InteractiveObject(
     val strings = mutableMapOf<String, String>()
     val bigStrings = mutableMapOf<String, String>()
 
-    fun getCanvasPath() = CanvasPath(path)
+    val canvasPath = CanvasPath(path)
 
     override fun toString(): String {
         var resultString = "Type Name: $dataType\n" +

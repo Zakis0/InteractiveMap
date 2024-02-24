@@ -11,6 +11,7 @@ import com.example.interactivemap.Constants.Debug
 import com.example.interactivemap.Constants.Errors
 import com.example.interactivemap.Constants.Keys
 import com.example.interactivemap.Modules.JSONParser
+import com.example.interactivemap.Modules.ObjectOpener
 import com.example.interactivemap.databinding.ActivityMapBinding
 
 class MapActivity : AppCompatActivity() {
@@ -27,18 +28,7 @@ class MapActivity : AppCompatActivity() {
         val objectJsonName = intent.getStringExtra(Keys.MAP_OBJECT_JSON_KEY)
         dataTypesMap = intent.getSerializableExtra(Keys.DATA_TYPES_MAP_KEY) as? MutableMap<String, DataType>
 
-        if (mapName.isNullOrEmpty()) {
-            Log.e(Debug.MAP_OPENER_DEBUG, Errors.READ_MAP_NAME_ERROR)
-            error(Errors.READ_MAP_NAME_ERROR)
-        }
-        if (objectJsonName.isNullOrEmpty()) {
-            Log.e(Debug.MAP_OPENER_DEBUG, Errors.READ_OBJECTS_JSON_NAME_ERROR)
-            error(Errors.READ_OBJECTS_JSON_NAME_ERROR)
-        }
-        if (dataTypesMap.isNullOrEmpty()) {
-            Log.e(Debug.MAP_OPENER_DEBUG, Errors.READ_DATA_TYPES_MAP_ERROR)
-            error(Errors.READ_DATA_TYPES_MAP_ERROR)
-        }
+        ObjectOpener.checkIfInputIsNull(mapName, objectJsonName, dataTypesMap)
 
         Log.d(Debug.MAP_OPENER_DEBUG,
             "Map name: $mapName\n" +
@@ -55,7 +45,7 @@ class MapActivity : AppCompatActivity() {
         binding.mapView.activity = this
 
         val interactiveObjectsList = JSONParser.getJSONsInteractiveObjectsListList(
-            this, mapName!!, objectJsonName, dataTypesMap!!
+            this, mapName!!, objectJsonName!!, dataTypesMap!!
         )
         binding.mapView.objects = interactiveObjectsList
     }

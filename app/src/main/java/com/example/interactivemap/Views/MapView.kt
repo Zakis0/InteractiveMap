@@ -15,6 +15,7 @@ import com.example.interactivemap.Classes.InteractiveObject
 import com.example.interactivemap.Constants.Debug
 import com.example.interactivemap.Constants.Keys
 import com.example.interactivemap.Modules.JSONParser
+import com.example.interactivemap.Modules.ObjectOpener
 
 class MapView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     private val paint: Paint = Paint()
@@ -24,7 +25,7 @@ class MapView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     override fun onDraw(canvas: Canvas) {
         objects.forEach { obj ->
-            canvas.drawPath(obj.getCanvasPath().path, paint.apply {
+            canvas.drawPath(obj.canvasPath.path, paint.apply {
                 color = obj.color.parseColor()
             })
         }
@@ -34,17 +35,8 @@ class MapView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         when (event.action) {
             MotionEvent.ACTION_UP -> {
                 val touchedIndex = getTouchedFigureIndex(touchCords.x, touchCords.y)
-                if (touchedIndex != -1 && objects[touchedIndex].insideObject != "") {
-                    Log.d(Debug.MAP_OPENER_DEBUG,
-                        "Open object: ${objects[touchedIndex].insideObject}.json")
-
-                    val intent = Intent(activity, MapActivity::class.java)
-
-                    intent.putExtra(Keys.MAP_NAME_KEY, activity!!.mapName)
-                    intent.putExtra(Keys.MAP_OBJECT_JSON_KEY, objects[touchedIndex].insideObject)
-                    intent.putExtra(Keys.DATA_TYPES_MAP_KEY, HashMap(activity!!.dataTypesMap))
-
-                    activity!!.activityLauncher!!.launch(intent)
+                if (touchedIndex != -1) {
+                    ObjectOpener.openObject(touchedIndex, objects, activity)
                 }
             }
         }
@@ -53,7 +45,7 @@ class MapView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     private fun getTouchedFigureIndex(x: Float, y: Float): Int {
         for (index in objects.indices) {
             val bounds = RectF()
-            objects[index].getCanvasPath().path.computeBounds(bounds, true)
+            objects[index].canvasPath.path.computeBounds(bounds, true)
             if (bounds.contains(x, y)) {
                 return index
             }

@@ -35,6 +35,8 @@ object JSONParser {
     private const val STRING_DATA_TYPE = "String"
     private const val BIG_STRING_DATA_TYPE = "BigString"
 
+    const val NULL_INSIDE_OBJECT = ""
+
     const val DATA_TYPE_JSON_PATH = "dataTypes"
     const val MAIN_JSON_PATH = "main"
 
