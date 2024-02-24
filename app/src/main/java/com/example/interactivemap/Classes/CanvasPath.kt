@@ -1,4 +1,4 @@
-package com.example.interactivemap
+package com.example.interactivemap.Classes
 
 import android.graphics.Path
 

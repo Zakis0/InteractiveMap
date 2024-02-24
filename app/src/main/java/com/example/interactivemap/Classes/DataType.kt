@@ -1,6 +1,8 @@
-package com.example.interactivemap
+package com.example.interactivemap.Classes
 
-class DataType(val dataTypeName: String) {
+import java.io.Serializable
+
+class DataType(val dataTypeName: String): Serializable {
     val ints = mutableSetOf<String>()
     val doubles = mutableSetOf<String>()
     val bools = mutableSetOf<String>()

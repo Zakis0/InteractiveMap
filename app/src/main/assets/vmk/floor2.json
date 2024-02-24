@@ -3,48 +3,29 @@
     {
       "DataType": "Cabinet",
       "Name": "666",
+      "Color": [124, 200, 200],
       "Icon": "",
       "InsideObject": "",
       "Path": [
         [12, 12],
-        [124, 621]
+        [124, 621],
+        [50, 80]
       ],
       "HasProjector": true,
-      "NumberChairs": 2
+      "NumberChairs": 20
     },
     {
       "DataType": "LectureCabinet",
       "Name" : "П5",
+      "Color": [200, 200, 0],
       "Icon": "",
-      "InsideObject": "",
+      "InsideObject": "floor1",
       "Path": [
-        [12, 12],
-        [124, 621]
+        [200, 300],
+        [124, 621],
+        [900, 123]
       ],
-      "NumberChairs": 110
-    },
-    {
-      "DataType": "Cabinet",
-      "Name": "123",
-      "Icon": "",
-      "InsideObject": "",
-      "Path": [
-        [12, 12],
-        [124, 621]
-      ],
-      "HasProjector": false,
-      "NumberChairs": 0
-    },
-    {
-      "DataType": "LectureCabinet",
-      "Name" : "П14",
-      "Icon": "",
-      "InsideObject": "",
-      "Path": [
-        [12, 12],
-        [124, 621]
-      ],
-      "NumberChairs": 123
+      "NumberChairs": 100
     }
   ]
 }

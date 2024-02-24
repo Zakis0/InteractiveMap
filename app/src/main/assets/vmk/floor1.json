@@ -3,6 +3,7 @@
     {
       "DataType": "Cabinet",
       "Name": "666",
+      "Color": [124, 200, 12],
       "Icon": "",
       "InsideObject": "",
       "Path": [
@@ -16,11 +17,13 @@
     {
       "DataType": "LectureCabinet",
       "Name" : "П5",
+      "Color": [124, 0, 200],
       "Icon": "",
-      "InsideObject": "",
+      "InsideObject": "floor2",
       "Path": [
-        [12, 12],
-        [124, 621]
+        [200, 300],
+        [124, 621],
+        [900, 123]
       ],
       "NumberChairs": 100
     }

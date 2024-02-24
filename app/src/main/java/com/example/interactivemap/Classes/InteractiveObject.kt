@@ -1,4 +1,4 @@
-package com.example.interactivemap
+package com.example.interactivemap.Classes
 
 class InteractiveObject(
     var dataType: String,

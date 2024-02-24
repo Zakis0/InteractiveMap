@@ -1,7 +1,12 @@
-package com.example.interactivemap
+package com.example.interactivemap.Modules
 
 import android.content.Context
 import android.util.Log
+import com.example.interactivemap.Classes.Coords
+import com.example.interactivemap.Classes.DataType
+import com.example.interactivemap.Classes.InteractiveObject
+import com.example.interactivemap.Classes.MyColor
+import com.example.interactivemap.Constants.Debug
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
@@ -30,8 +35,8 @@ object JSONParser {
     private const val STRING_DATA_TYPE = "String"
     private const val BIG_STRING_DATA_TYPE = "BigString"
 
-    private const val DATA_TYPE_JSON_PATH = "dataTypes"
-    private const val MAIN_JSON_PATH = "main"
+    const val DATA_TYPE_JSON_PATH = "dataTypes"
+    const val MAIN_JSON_PATH = "main"
 
     private fun readJSONFromAssets(context: Context, path: String): String {
         try {
@@ -46,7 +51,7 @@ object JSONParser {
             }
             return stringBuilder.toString()
         } catch (e: Exception) {
-            Log.e(GLOBAL_DEBUG, "JSON reading Error: $e")
+            Log.e(Debug.GLOBAL_DEBUG, "JSON reading Error: $e")
             e.printStackTrace()
             return ""
         }
@@ -56,12 +61,15 @@ object JSONParser {
         val type = object : TypeToken<Map<String, List<Map<String, Any>>>>() {}.type
         return gson.fromJson(jsonString, type)
     }
-    fun getJSONsInteractiveObjectsListList(context: Context, rootPath: String): MutableList<InteractiveObject> {
-        val jsonString = readJSONFromAssets(context, "$rootPath/$MAIN_JSON_PATH")
+    fun getJSONsInteractiveObjectsListList(
+        context: Context,
+        rootPath: String,
+        filePath: String,
+        dataTypesMap: MutableMap<String, DataType>
+    ): MutableList<InteractiveObject> {
+        val jsonString = readJSONFromAssets(context, "$rootPath/$filePath")
         val jsonMap = parseJsonToMapOfListOfMaps(jsonString)
         val interactiveObjectsList = mutableListOf<InteractiveObject>()
-
-        val dataTypesMap = getDataTypesMap(context, "$rootPath/$DATA_TYPE_JSON_PATH")
 
         jsonMap[jsonMap.keys.first()]?.forEach { map ->
             val dataTypeName = map[OBJECT_DATA_TYPE_KEY] as String
@@ -118,7 +126,7 @@ object JSONParser {
         val type = object : TypeToken<Map<String, Map<String, Any>>>() {}.type
         return gson.fromJson(jsonString, type)
     }
-    private fun getDataTypesMap(context: Context, rootPath: String): MutableMap<String, DataType> {
+    fun getDataTypesMap(context: Context, rootPath: String): MutableMap<String, DataType> {
         val dataTypesMap = mutableMapOf<String, DataType>()
         val jsonString = readJSONFromAssets(context, rootPath)
         val jsonMap = parseJsonToMapOfMaps(jsonString)
