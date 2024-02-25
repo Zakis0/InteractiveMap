@@ -1,5 +1,7 @@
 package com.example.interactivemap.Classes
 
+import java.io.Serializable
+
 class InteractiveObject(
     var dataType: String,
     var path: MutableList<Coords>,
@@ -7,12 +9,14 @@ class InteractiveObject(
     var color: MyColor = MyColor.GRAY,
     var insideObject: String = "",
     var icon: String = ""
-) {
+): Serializable {
     val ints = mutableMapOf<String, Int>()
     val doubles = mutableMapOf<String, Double>()
     val bools = mutableMapOf<String, Boolean>()
     val strings = mutableMapOf<String, String>()
     val bigStrings = mutableMapOf<String, String>()
+
+    val listOfData = listOf(ints, doubles, bools, strings, bigStrings)
 
     val canvasPath = CanvasPath(path)
 

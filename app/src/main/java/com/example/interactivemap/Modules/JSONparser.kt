@@ -29,20 +29,14 @@ object JSONParser {
         OBJECT_PATH_KEY
     )
 
-    private const val INT_DATA_TYPE = "Int"
-    private const val DOUBLE_DATA_TYPE = "Double"
-    private const val BOOL_DATA_TYPE = "Bool"
-    private const val STRING_DATA_TYPE = "String"
-    private const val BIG_STRING_DATA_TYPE = "BigString"
-
     const val NULL_INSIDE_OBJECT = ""
 
     const val DATA_TYPE_JSON_PATH = "dataTypes"
     const val MAIN_JSON_PATH = "main"
 
-    private fun readJSONFromAssets(context: Context, path: String): String {
+    private fun readJSONFromAssets(context: Context, pathToJsonInAssets: String): String {
         try {
-            val file = context.assets.open("${path}.json")
+            val file = context.assets.open("${pathToJsonInAssets}.json")
             val bufferedReader = BufferedReader(InputStreamReader(file))
 
             val stringBuilder = StringBuilder()
@@ -63,13 +57,13 @@ object JSONParser {
         val type = object : TypeToken<Map<String, List<Map<String, Any>>>>() {}.type
         return gson.fromJson(jsonString, type)
     }
-    fun getJSONsInteractiveObjectsListList(
+    fun getJSONsInteractiveObjectsList(
         context: Context,
-        rootPath: String,
-        filePath: String,
+        mapRootPath: String,
+        objectsJsonName: String,
         dataTypesMap: MutableMap<String, DataType>
     ): MutableList<InteractiveObject> {
-        val jsonString = readJSONFromAssets(context, "$rootPath/$filePath")
+        val jsonString = readJSONFromAssets(context, "$mapRootPath/$objectsJsonName")
         val jsonMap = parseJsonToMapOfListOfMaps(jsonString)
         val interactiveObjectsList = mutableListOf<InteractiveObject>()
 
@@ -128,19 +122,19 @@ object JSONParser {
         val type = object : TypeToken<Map<String, Map<String, Any>>>() {}.type
         return gson.fromJson(jsonString, type)
     }
-    fun getDataTypesMap(context: Context, rootPath: String): MutableMap<String, DataType> {
+    fun getDataTypesMap(context: Context, mapRootPath: String): MutableMap<String, DataType> {
         val dataTypesMap = mutableMapOf<String, DataType>()
-        val jsonString = readJSONFromAssets(context, rootPath)
+        val jsonString = readJSONFromAssets(context, mapRootPath)
         val jsonMap = parseJsonToMapOfMaps(jsonString)
         jsonMap.forEach { (dataTypeName, params) ->
             val dataType = DataType(dataTypeName)
             params.forEach { (key, value) ->
                 when (value as String) {
-                    INT_DATA_TYPE -> dataType.ints.add(key)
-                    DOUBLE_DATA_TYPE -> dataType.doubles.add(key)
-                    BOOL_DATA_TYPE -> dataType.bools.add(key)
-                    STRING_DATA_TYPE -> dataType.strings.add(key)
-                    BIG_STRING_DATA_TYPE -> dataType.bigStrings.add(key)
+                    DataType.INT_DATA_TYPE -> dataType.ints.add(key)
+                    DataType.DOUBLE_DATA_TYPE -> dataType.doubles.add(key)
+                    DataType.BOOL_DATA_TYPE -> dataType.bools.add(key)
+                    DataType.STRING_DATA_TYPE -> dataType.strings.add(key)
+                    DataType.BIG_STRING_DATA_TYPE -> dataType.bigStrings.add(key)
                 }
             }
             dataTypesMap[dataTypeName] = dataType

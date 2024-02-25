@@ -28,18 +28,7 @@ class MainActivity : AppCompatActivity() {
         val mapName = "vmk"
 
         binding.button.setOnClickListener {
-            val dataTypesMap =
-                JSONParser.getDataTypesMap(
-                    this,
-                    "$mapName/${JSONParser.DATA_TYPE_JSON_PATH}"
-                )
-            ObjectOpener.launchIntent(
-                activityLauncher,
-                this@MainActivity,
-                mapName,
-                JSONParser.MAIN_JSON_PATH,
-                dataTypesMap
-            )
+            ObjectOpener.openMapMain(this, mapName, activityLauncher)
         }
     }
 }

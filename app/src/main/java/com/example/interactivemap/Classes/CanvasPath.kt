@@ -1,28 +1,23 @@
 package com.example.interactivemap.Classes
 
 import android.graphics.Path
+import java.io.Serializable
 
-class CanvasPath(path: MutableList<Coords>) {
+class CanvasPath(coordsList: MutableList<Coords>): Serializable {
+    @Transient // to do not serialize Path()
     val path = Path()
 
     init {
-        addList(path)
-    }
-    private fun addInnerCoord(coords: Coords) {
-        path.lineTo(coords.x, coords.y)
-    }
-    private fun addBorderCoord(coords: Coords) {
-        path.moveTo(coords.x, coords.y)
+        addList(coordsList)
     }
     private fun addList(list: MutableList<Coords>) {
         list.forEachIndexed { index, coords ->
             if (index == 0) {
-                addBorderCoord(coords)
+                path.moveTo(coords.x, coords.y)
             }
             else {
-                addInnerCoord(coords)
+                path.lineTo(coords.x, coords.y)
             }
         }
-        addBorderCoord(list.first())
     }
 }

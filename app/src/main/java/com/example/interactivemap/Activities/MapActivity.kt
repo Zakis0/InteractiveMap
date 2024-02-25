@@ -6,9 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.interactivemap.Classes.ClickModes
+import com.example.interactivemap.Classes.Constants
 import com.example.interactivemap.Classes.DataType
 import com.example.interactivemap.Constants.Debug
-import com.example.interactivemap.Constants.Errors
 import com.example.interactivemap.Constants.Keys
 import com.example.interactivemap.Modules.JSONParser
 import com.example.interactivemap.Modules.ObjectOpener
@@ -19,6 +20,7 @@ class MapActivity : AppCompatActivity() {
     var mapName: String? = null
     var dataTypesMap: MutableMap<String, DataType>? = null
     var activityLauncher: ActivityResultLauncher<Intent>? = null
+    var clickMode: ClickModes? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapBinding.inflate(layoutInflater)
@@ -27,6 +29,8 @@ class MapActivity : AppCompatActivity() {
         mapName = intent.getStringExtra(Keys.MAP_NAME_KEY)
         val objectJsonName = intent.getStringExtra(Keys.MAP_OBJECT_JSON_KEY)
         dataTypesMap = intent.getSerializableExtra(Keys.DATA_TYPES_MAP_KEY) as? MutableMap<String, DataType>
+
+        clickMode = Constants.DEFAULT_CLICK_MODE
 
         ObjectOpener.checkIfInputIsNull(mapName, objectJsonName, dataTypesMap)
 
@@ -41,12 +45,27 @@ class MapActivity : AppCompatActivity() {
                     // Temporary do not needed
                 }
             }
+        binding.changeModeBtn.setOnClickListener {
+            nextMode()
+            binding.changeModeBtn.text = binding.mapView.clickMode!!.modeName
+        }
 
         binding.mapView.activity = this
+        binding.mapView.clickMode = clickMode
+        binding.changeModeBtn.text = clickMode!!.modeName
 
-        val interactiveObjectsList = JSONParser.getJSONsInteractiveObjectsListList(
+        val interactiveObjectsList = JSONParser.getJSONsInteractiveObjectsList(
             this, mapName!!, objectJsonName!!, dataTypesMap!!
         )
         binding.mapView.objects = interactiveObjectsList
+    }
+    private fun nextMode() {
+        binding.mapView.clickMode = when (binding.mapView.clickMode) {
+            ClickModes.OPEN_INSIDE_OBJECT -> ClickModes.OPEN_INFO
+            ClickModes.OPEN_INFO -> ClickModes.OPEN_INSIDE_OBJECT
+//            ClickModes.OPEN_INFO -> ClickModes.MOVE
+//            ClickModes.MOVE -> ClickModes.OPEN_INSIDE_OBJECT
+            else -> ClickModes.MOVE
+        }
     }
 }

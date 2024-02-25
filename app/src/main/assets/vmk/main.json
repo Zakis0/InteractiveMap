@@ -2,7 +2,7 @@
   "objects": [
     {
       "DataType": "Cabinet",
-      "Name": "666",
+      "Name": "Yellow triangle",
       "Color": [124, 124, 12],
       "Icon": "",
       "InsideObject": "main",
@@ -16,7 +16,7 @@
     },
     {
       "DataType": "Floor",
-      "Name" : "2",
+      "Name" : "Red triangle",
       "Color": [124, 0, 12],
       "Icon": "",
       "InsideObject": "floor2",
@@ -28,7 +28,7 @@
     },
     {
       "DataType": "Floor",
-      "Name" : "Floor 1",
+      "Name" : "Green square",
       "Color": [0, 124, 12],
       "Icon": "",
       "InsideObject": "floor1",

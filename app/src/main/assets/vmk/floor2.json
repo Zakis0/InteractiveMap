@@ -2,7 +2,7 @@
   "objects" : [
     {
       "DataType": "Cabinet",
-      "Name": "666",
+      "Name": "Blue triangle",
       "Color": [124, 200, 200],
       "Icon": "",
       "InsideObject": "",
@@ -16,7 +16,7 @@
     },
     {
       "DataType": "LectureCabinet",
-      "Name" : "П5",
+      "Name" : "Yellow triangle",
       "Color": [200, 200, 0],
       "Icon": "",
       "InsideObject": "floor1",

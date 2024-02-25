@@ -10,13 +10,17 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.example.interactivemap.Activities.MapActivity
+import com.example.interactivemap.Classes.ClickModes
 import com.example.interactivemap.Classes.Coords
 import com.example.interactivemap.Classes.InteractiveObject
+import com.example.interactivemap.Modules.ObjectInfoReader
 import com.example.interactivemap.Modules.ObjectOpener
 
 class MapView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     private val paint: Paint = Paint()
     var activity: MapActivity? = null
+
+    var clickMode: ClickModes? = null
 
     var objects: MutableList<InteractiveObject> = mutableListOf()
 
@@ -33,7 +37,17 @@ class MapView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             MotionEvent.ACTION_UP -> {
                 val touchedObject = getTouchedObject(touchCords)
                 if (touchedObject != null) {
-                    ObjectOpener.openObject(touchedObject, activity)
+                    when(clickMode) {
+                        ClickModes.OPEN_INSIDE_OBJECT -> {
+                            ObjectOpener.openInsideObject(touchedObject, activity)
+                        }
+                        ClickModes.OPEN_INFO -> {
+                            ObjectInfoReader.openObjectInfo(touchedObject, activity)
+                        }
+                        else -> {
+
+                        }
+                    }
                 }
             }
         }
