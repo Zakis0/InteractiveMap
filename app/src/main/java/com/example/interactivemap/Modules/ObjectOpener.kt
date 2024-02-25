@@ -11,21 +11,17 @@ import com.example.interactivemap.Constants.Errors
 import com.example.interactivemap.Constants.Keys
 
 object ObjectOpener {
-    fun openObject(
-        touchedIndex: Int,
-        objects: MutableList<InteractiveObject>,
-        activity: MapActivity?
-    ) {
-        if (objects[touchedIndex].insideObject != JSONParser.NULL_INSIDE_OBJECT) {
+    fun openObject(touchedObject: InteractiveObject, activity: MapActivity?) {
+        if (touchedObject.insideObject != JSONParser.NULL_INSIDE_OBJECT) {
             Log.d(
                 Debug.MAP_OPENER_DEBUG,
-                "Open object: ${objects[touchedIndex].insideObject}.json"
+                "Open object: ${touchedObject.insideObject}.json"
             )
             launchIntent(
                 activity!!.activityLauncher!!,
                 activity,
                 activity.mapName!!,
-                objects[touchedIndex].insideObject,
+                touchedObject.insideObject,
                 activity.dataTypesMap!!
             )
         }
